@@ -1,12 +1,12 @@
 (1..20).each do |x|
-  if x%3 == 0 && x%5 == 0
-    p "FizzBuzz"
-  elsif x%3 == 0
-    p "Fizz"
-  elsif x%5 == 0
-    p "Buzz"
+  if x % 3 == 0 && x % 5 == 0
+    puts "FizzBuzz"
+  elsif x % 3 == 0
+    puts "Fizz"
+  elsif x % 5 == 0
+    puts "Buzz"
   else
-    p x
+    puts x
   end
 end
 
