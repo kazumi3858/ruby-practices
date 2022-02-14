@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-score = ARGV[0]
-scores = score.split(',')
+scores = ARGV[0].split(',')
 shots = []
 scores.each do |s|
   if s == 'X'
@@ -19,14 +18,14 @@ end
 
 point = 0
 frames.first(9).each_with_index do |frame, i|
-  a = i + 1
-  b = i + 2
-  point += if frames[i] == [10, 0] && frames[a] == [10, 0]
-             10 + 10 + frames[b].first
+  next1 = i + 1
+  next2 = i + 2
+  point += if frames[i] == [10, 0] && frames[next1] == [10, 0]
+             10 + 10 + frames[next2].first
            elsif frames[i] == [10, 0]
-             10 + frames[a].sum
+             10 + frames[next1].sum
            elsif frame.sum == 10
-             10 + frames[a].first
+             10 + frames[next1].first
            else
              frame.sum
            end
