@@ -18,14 +18,14 @@ end
 
 point = 0
 frames.first(9).each_with_index do |frame, i|
-  next1 = i + 1
-  next2 = i + 2
-  point += if frames[i] == [10, 0] && frames[next1] == [10, 0]
-             10 + 10 + frames[next2].first
+  next_index = i + 1
+  after_next_index = i + 2
+  point += if frames[i] == [10, 0] && frames[next_index] == [10, 0]
+             10 + 10 + frames[after_next_index].first
            elsif frames[i] == [10, 0]
-             10 + frames[next1].sum
+             10 + frames[next_index].sum
            elsif frame.sum == 10
-             10 + frames[next1].first
+             10 + frames[next_index].first
            else
              frame.sum
            end
