@@ -4,7 +4,7 @@ require 'optparse'
 
 TEXT_WIDTH = 30
 COLUMNS = 3
-OPTIONS = ARGV.getopts('arl:') # 受け取れるオプション
+OPTIONS = ARGV.getopts('arl') # 受け取れるオプション
 
 def file_lists
   if OPTIONS['a']
