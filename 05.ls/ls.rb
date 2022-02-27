@@ -4,9 +4,10 @@ require 'optparse'
 
 TEXT_WIDTH = 30
 COLUMNS = 3
+OPTIONS = ARGV.getopts('arl:') # 受け取れるオプション
 
 def file_lists
-  if /-.?a.?/.match?(ARGV.to_s)
+  if OPTIONS['a']
     Dir.glob('*', File::FNM_DOTMATCH).map { |list| list.ljust(TEXT_WIDTH) }
   else
     Dir.glob('*').map { |list| list.ljust(TEXT_WIDTH) }
