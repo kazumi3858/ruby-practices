@@ -4,18 +4,25 @@ require 'optparse'
 
 TEXT_WIDTH = 30
 COLUMNS = 3
-OPTIONS = ARGV.getopts('arl') # 受け取れるオプション
+
+def options
+  ARGV.getopts('arl') # 受け取れるオプション
+end
 
 def file_lists
-  if OPTIONS['a']
-    Dir.glob('*', File::FNM_DOTMATCH).map { |list| list.ljust(TEXT_WIDTH) }
+  Dir.glob('*').map { |list| list.ljust(TEXT_WIDTH) }
+end
+
+def reverse_lists_option
+  if options['r']
+    file_lists.sort.reverse
   else
-    Dir.glob('*').map { |list| list.ljust(TEXT_WIDTH) }
+    file_lists
   end
 end
 
 def create_columns
-  lists = file_lists
+  lists = reverse_lists_option
   rest_of_row = lists.size % COLUMNS
   (COLUMNS - rest_of_row).times { lists.push(nil) } if rest_of_row != 0
   lists.each_slice(lists.size / COLUMNS).to_a
