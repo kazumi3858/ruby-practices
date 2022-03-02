@@ -6,7 +6,7 @@ TEXT_WIDTH = 30
 COLUMNS = 3
 
 def options
-  ARGV.getopts('arl') # 受け取れるオプション
+  @options ||= ARGV.getopts('arl') # 受け取れるオプション
 end
 
 def file_lists
@@ -14,11 +14,7 @@ def file_lists
 end
 
 def reverse_lists_option
-  if options['r']
-    file_lists.sort.reverse
-  else
-    file_lists
-  end
+  options['r'] ? file_lists.sort.reverse : file_lists
 end
 
 def create_columns
