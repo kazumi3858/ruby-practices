@@ -26,7 +26,7 @@ def adjust_long_list_spaces
     @total_block_number += File::Stat.new(list).blocks
     nlink_array << content.nlink.to_s
     uid_array << Etc.getpwuid(content.uid).name
-    gid_array << Etc.getpwuid(content.gid).name
+    gid_array << Etc.getgrgid(content.gid).name
     size_array << content.size.to_s
   end
 
@@ -48,7 +48,7 @@ def show_long_lists
     print "#{content.mode.to_s(8).rjust(6, '0')[3..5].gsub(/[01234567]/, permission)} "
     print "#{content.nlink.to_s.rjust(@nlink_max_length)} "
     print "#{Etc.getpwuid(content.uid).name.rjust(@uid_max_length)} "
-    print "#{Etc.getpwuid(content.gid).name.rjust(@gid_max_length)} "
+    print "#{Etc.getgrgid(content.gid).name.rjust(@gid_max_length)} "
     print "#{content.size.to_s.rjust(@size_max_length)} "
     print content.mtime.strftime('%b %e %R ')
     puts(list.to_s)
