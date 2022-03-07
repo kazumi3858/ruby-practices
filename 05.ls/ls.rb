@@ -42,7 +42,7 @@ end
 
 def show_long_lists
   adjust_long_list_spaces
-  puts "total #{@total_block_number / 2}" # 1バイト1024を半分の512に変更
+  puts "total #{@total_block_number / 2}" # 1バイト1024を半分の512に変更する
 
   sort_lists.each do |list|
     content = File::Stat.new(list)
