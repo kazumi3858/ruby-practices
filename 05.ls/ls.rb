@@ -11,7 +11,11 @@ def options
 end
 
 def file_lists
-  Dir.glob('*')
+  options['a'] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
+end
+
+def sort_lists
+  options['r'] ? file_lists.sort.reverse : file_lists
 end
 
 def adjust_long_list_spaces
@@ -40,7 +44,7 @@ def show_long_lists
   adjust_long_list_spaces
   puts "total #{@total_block_number / 2}" # 1バイト1024を半分の512に変更
 
-  file_lists.each do |list|
+  sort_lists.each do |list|
     content = File::Stat.new(list)
     file_type = { '010' => 'p', '020' => 'c', '040' => 'd', '060' => 'b', '100' => '-', '120' => 'l', '140' => 's' }
     permission = { '0' => '---', '1' => '--x', '2' => '-w-', '3' => '-wx', '4' => 'r--', '5' => 'r-x', '6' => 'rw-', '7' => 'rwx' }
@@ -56,7 +60,7 @@ def show_long_lists
 end
 
 def create_columns
-  lists = file_lists.map { |list| list.ljust(TEXT_WIDTH) }
+  lists = sort_lists.map { |list| list.ljust(TEXT_WIDTH) }
   rest_of_row = lists.size % COLUMNS
   (COLUMNS - rest_of_row).times { lists.push(nil) } if rest_of_row != 0
   lists.each_slice(lists.size / COLUMNS).to_a
