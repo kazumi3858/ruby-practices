@@ -20,13 +20,13 @@ class Wc
       total_word_number += text.split.count
       total_size_number += text.bytesize
       print text.count("\n").to_s.rjust(4)
-      print text.split.count.to_s.rjust(5) + text.bytesize.to_s.rjust(5) unless params[:l]
+      print "#{text.split.count.to_s.rjust(5)}#{text.bytesize.to_s.rjust(5)}" unless params[:l]
       input == file_names ? puts(" #{data}") : puts("\n")
     end
-    return unless file_names.size >= 2
+    return if file_names.size < 2
 
     print total_line_number.to_s.rjust(4)
-    print total_word_number.to_s.rjust(5) + total_size_number.to_s.rjust(5) unless params[:l]
+    print "#{total_word_number.to_s.rjust(5)}#{total_size_number.to_s.rjust(5)}" unless params[:l]
     puts ' total'
   end
 end
