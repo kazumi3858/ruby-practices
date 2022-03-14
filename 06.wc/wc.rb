@@ -12,41 +12,22 @@ class Wc
     @file_names = opt.parse!(ARGV)
   end
 
-  def result_from_input
-    input = $stdin.read
-    if params[:l]
-      puts input.count("\n")
-    else
-      puts input.count("\n").to_s.rjust(7) + input.split.count.to_s.rjust(8) + input.bytesize.to_s.rjust(8)
+  def result(total_line_number = 0, total_word_number = 0, total_size_number = 0)
+    input = file_names.empty? == true ? [$stdin.read] : file_names
+    input.each do |data|
+      text = input == file_names ? File.read(data) : data
+      total_line_number += text.count("\n")
+      total_word_number += text.split.count
+      total_size_number += text.bytesize
+      print text.count("\n").to_s.rjust(4)
+      print text.split.count.to_s.rjust(5) + text.bytesize.to_s.rjust(5) unless params[:l]
+      input == file_names ? puts(" #{data}") : puts("\n")
     end
-  end
+    return unless file_names.size >= 2
 
-  def result_from_file_names
-    file_names.each do |name|
-      print File.read(name).count("\n").to_s.rjust(4)
-      print File.read(name).split.count.to_s.rjust(5) + File.read(name).bytesize.to_s.rjust(5) unless params[:l]
-      puts " #{name}"
-    end
-  end
-
-  def total_numbers(total_line_number = 0, total_word_number = 0, total_size_number = 0)
-    file_names.each do |name|
-      total_line_number += File.read(name).count("\n")
-      total_word_number += File.read(name).split.count
-      total_size_number += File.read(name).bytesize
-    end
     print total_line_number.to_s.rjust(4)
     print total_word_number.to_s.rjust(5) + total_size_number.to_s.rjust(5) unless params[:l]
     puts ' total'
-  end
-
-  def result
-    if file_names.empty?
-      result_from_input
-    else
-      result_from_file_names
-      total_numbers if file_names.size >= 2
-    end
   end
 end
 
