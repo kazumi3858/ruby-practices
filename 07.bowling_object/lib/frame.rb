@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "shot"
+require_relative 'shot'
 
 class Frame < Shot
   def create_frames(numbers)
@@ -10,4 +10,4 @@ class Frame < Shot
   end
 end
 
-#Frame.new.create_frames(ARGV[0])
+# Frame.new.create_frames(ARGV[0])

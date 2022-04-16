@@ -1,30 +1,42 @@
 # frozen_string_literal: true
 
-require_relative "frame"
+require_relative 'frame'
 
 class Game < Frame
-  def calculate_scores(numbers)
-    total_score = 0
+  def show_final_score(numbers)
+    final_score = 0
     frames = create_frames(numbers)
-    frames.each_with_index do |frame, i|
-      one_frame = frames[i]
-      next_frame = frames[i + 1]
-      after_next_frame = frames[i + 2]
-      total_score += if 
+    frames.first(9).each_with_index do |frame, i|
+      final_score += if frames[i] == [10, 0] && frames[i + 1] == [10, 0]
+                       plus_consecutive_strike_score(frames, i)
+                     elsif frames[i] == [10, 0]
+                       plus_strike_score(frames, i)
+                     elsif frame.sum == 10
+                       plus_spare_score(frames, i)
+                     else
+                       frame.sum
+                     end
     end
+    final_score += frames[9].sum
   end
 
-  def plus_spare_score
-      10 + next_frame.first
+  def calculate_first_nine_frames
   end
 
-  def plus_consecutive_strike_scores
-    10 + 10 + after_next_frame.first
+  def calculate_last_frame
   end
 
-  def plus_strike_score
-    10 + next_frame.sum
+  def plus_spare_score(frames, i)
+    10 + frames[i + 1].first
+  end
+
+  def plus_consecutive_strike_score(frames, i)
+    10 + 10 + frames[i + 2].first
+  end
+
+  def plus_strike_score(frames, i)
+    10 + frames[i + 1][0..1].sum
   end
 end
 
-p Game.new.calculate_scores(ARGV[0])
+p Game.new.show_final_score(ARGV[0])
