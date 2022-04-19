@@ -2,9 +2,7 @@
 
 class Shot
   def create_shots(numbers)
-    scores = numbers.gsub('X', '10,0')
-    scores.split(',').map(&:to_i)
+    scores = numbers.gsub('X', '10,NA')
+    scores.split(',')
   end
 end
-
-# Shot.new.get_scores(ARGV[0])
