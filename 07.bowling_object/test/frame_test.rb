@@ -5,7 +5,7 @@ require_relative '../lib/frame'
 
 class FrameTest < Minitest::Test
   def test_frame
-    assert_equal [[6, 3], [9, 0], [0, 3], [8, 2], [7, 3], [10], [9, 1], [8, 0], [10], [6, 4, 5]],
-                 Frame.new.create_frames('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5')
+    assert_equal 18, Frame.new('X', '0', '8').score
+    assert_equal 5, Frame.new('4', '1').score
   end
 end
