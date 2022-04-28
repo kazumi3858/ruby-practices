@@ -19,11 +19,11 @@ class Game
   def bonus_scores(frame, index)
     next_frame = @frames[index + 1]
     after_next_frame = @frames[index + 2]
-    if frame.strike && next_frame.strike
+    if frame.strike? && next_frame.strike?
       consecutive_strike_score(index, next_frame, after_next_frame)
-    elsif frame.strike
+    elsif frame.strike?
       strike_score(next_frame)
-    elsif frame.spare
+    elsif frame.spare?
       spare_score(next_frame)
     else
       0

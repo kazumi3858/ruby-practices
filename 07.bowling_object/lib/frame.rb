@@ -13,10 +13,12 @@ class Frame
 
   def self.frames(numbers)
     numbers = numbers.split(',')
-    numbers.map.with_index do |number, index|
-      numbers.insert(index + 1, nil) if number == 'X'
+    revised_numbers = []
+    numbers.each do |number|
+      revised_numbers << number
+      revised_numbers << nil if number == 'X'
     end
-    groups_of_numbers = numbers.first(18).each_slice(2).to_a.push(numbers[18..]).map(&:compact)
+    groups_of_numbers = revised_numbers.first(18).each_slice(2).to_a.push(revised_numbers[18..]).map(&:compact)
     groups_of_numbers.map { |group| Frame.new(group[0], group[1], group[2]) }
   end
 
@@ -24,11 +26,11 @@ class Frame
     [first_shot.score, second_shot.score, third_shot.score].sum
   end
 
-  def strike
+  def strike?
     first_shot.score == 10
   end
 
-  def spare
-    score == 10
+  def spare?
+    first_shot.score + second_shot.score == 10 unless strike?
   end
 end
