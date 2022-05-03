@@ -1,39 +1,28 @@
-# require 'etc'
+# frozen_string_literal: true
 
-# class ShortFileList
-#   FILE_TYPE = {
-#     "010" => "p",
-#     "020" => "c",
-#     "040" => "d",
-#     "060" => "b",
-#     "100" => "-",
-#     "120" => "l",
-#     "140" => "s",
-#   }
-#   PERMISSION = {
-#     "0" => "---",
-#     "1" => "--x",
-#     "2" => "-w-",
-#     "3" => "-wx",
-#     "4" => "r--",
-#     "5" => "r-x",
-#     "6" => "rw-",
-#     "7" => "rwx",
-#   }
-#   def initialize(file)
-#     @file = File.stat(file)
-#   end
+require_relative "file"
 
-#   def show
-#     print @file.mode.to_s(8).rjust(6, "0")[0..2].gsub(/010|020|040|060|100|120|140/, FILE_TYPE)
-#     print "#{@file.mode.to_s(8).rjust(6, "0")[3..5].gsub(/[01234567]/, PERMISSION)} "
-#     print "#{@file.nlink.to_s.rjust(10)} "
-#     print "#{Etc.getpwuid(@file.uid).name.rjust(10)} "
-#     print "#{Etc.getgrgid(@file.gid).name.rjust(10)} "
-#     print "#{@file.size.to_s.rjust(10)} "
-#     print @file.mtime.strftime("%b %e %R ")
-#   end
-# end
+class ShortFileList
+  COLUMNS = 3
+  TEXT_WIDTH = 20
 
-# ShortFileList.new(".gitkeep").show
+  def initialize(file_list)
+    @file_list = file_list.map { |file| FileData.new(file) }
+  end
 
+  def create_columns
+    file_list = @file_list.map { |file| file.name.ljust(TEXT_WIDTH) }
+    rest_of_row = file_list.size % COLUMNS
+    (COLUMNS - rest_of_row).times { file_list.push(nil) } unless rest_of_row.zero?
+    file_list.each_slice(file_list.size / COLUMNS).to_a
+  end
+
+  def show_result
+    create_columns.transpose.each do |result|
+      print result.join
+      puts "\n"
+    end
+  end
+end
+
+ShortFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_result
