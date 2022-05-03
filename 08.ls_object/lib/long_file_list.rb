@@ -35,7 +35,7 @@ class LongFileList
 
   def show_list
     file_list = @file_list.map { |file| format_list(file).join }
-    ["total #{calculate_total_block_number}", *file_list].join("\n")
+    ["total #{calculate_total_block_number}", *file_list]
   end
 end
 

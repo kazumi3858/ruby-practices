@@ -17,12 +17,9 @@ class ShortFileList
     file_list.each_slice(file_list.size / COLUMNS).to_a
   end
 
-  def show_result
-    create_columns.transpose.each do |result|
-      print result.join
-      puts "\n"
-    end
+  def show_list
+    create_columns.transpose.map { |result| result.join }
   end
 end
 
-#ShortFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_result
+#puts ShortFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_list

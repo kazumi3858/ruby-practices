@@ -13,6 +13,6 @@ class LongFileListTest < Minitest::Test
       drwxr-xr-x  2 kazumi kazumi 4096 May  2 11:40 lib
       drwxr-xr-x  2 kazumi kazumi 4096 May  2 10:53 test
     TEXT
-    assert_equal expected, LongFileList.new([".", "..", ".gitkeep", "lib", "test"]).show_list
+    assert_equal expected, LongFileList.new([".", "..", ".gitkeep", "lib", "test"]).show_list.join("\n")
   end
 end
