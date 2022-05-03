@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative 'file'
+require_relative 'file_data'
 
 class LongFileList
-  def initialize(file_list)
-    @file_list = file_list.map { |file| FileData.new(file) }
+  def initialize(file_names)
+    @file_list = file_names.map { |file_name| FileData.new(file_name) }
   end
 
   def calculate_total_block_number
-    @file_list.sum { |file| file.blocks } / 2 # 2で割ってバイト数を調整
+    @file_list.sum(&:blocks) / 2 # 2で割ってバイト数を調整
   end
 
   def adjudt_length
@@ -16,7 +16,7 @@ class LongFileList
       nlink: @file_list.map { |file| file.nlink.length }.max + 1,
       uid: @file_list.map { |file| file.uid.length }.max + 1,
       gid: @file_list.map { |file| file.gid.length }.max + 1,
-      size: @file_list.map { |file| file.size.length }.max + 1,
+      size: @file_list.map { |file| file.size.length }.max + 1
     }
   end
 
@@ -38,5 +38,3 @@ class LongFileList
     ["total #{calculate_total_block_number}", *file_list]
   end
 end
-
-#puts LongFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_list

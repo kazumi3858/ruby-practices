@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "minitest/autorun"
-require_relative "../lib/long_file_list"
+require 'minitest/autorun'
+require_relative '../lib/long_file_list'
 
 class LongFileListTest < Minitest::Test
   def test_long_file_list
@@ -13,6 +13,6 @@ class LongFileListTest < Minitest::Test
       drwxr-xr-x  2 kazumi kazumi 4096 May  2 11:40 lib
       drwxr-xr-x  2 kazumi kazumi 4096 May  2 10:53 test
     TEXT
-    assert_equal expected, LongFileList.new([".", "..", ".gitkeep", "lib", "test"]).show_list.join("\n")
+    assert_equal expected, LongFileList.new(['.', '..', '.gitkeep', 'lib', 'test']).show_list.join("\n")
   end
 end

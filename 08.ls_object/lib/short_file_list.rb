@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative "file"
+require_relative 'file_data'
 
 class ShortFileList
   COLUMNS = 3
   TEXT_WIDTH = 20
 
-  def initialize(file_list)
-    @file_list = file_list.map { |file| FileData.new(file) }
+  def initialize(file_names)
+    @file_list = file_names.map { |file_name| FileData.new(file_name) }
   end
 
   def create_columns
@@ -18,8 +18,6 @@ class ShortFileList
   end
 
   def show_list
-    create_columns.transpose.map { |result| result.join }
+    create_columns.transpose.map(&:join)
   end
 end
-
-#puts ShortFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_list
