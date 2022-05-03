@@ -25,4 +25,4 @@ class ShortFileList
   end
 end
 
-ShortFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_result
+#ShortFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_result

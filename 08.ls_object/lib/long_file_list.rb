@@ -34,12 +34,9 @@ class LongFileList
   end
 
   def show_list
-    puts "total #{calculate_total_block_number}"
-
-    @file_list.each do |file|
-      puts format_list(file).join
-    end
+    file_list = @file_list.map { |file| format_list(file).join }
+    ["total #{calculate_total_block_number}", *file_list].join("\n")
   end
 end
 
-LongFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_list
+#puts LongFileList.new(["test", "lib", ".gitkeep", "..", "."]).show_list
