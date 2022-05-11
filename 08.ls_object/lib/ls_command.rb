@@ -6,23 +6,28 @@ require_relative 'short_file_list'
 
 class LSCommand
   def initialize(argv = ARGV)
-    @options = argv.getopts('arl')
+    opts = OptionParser.new
+    @options = {}
+    opts.on('-a') { |_v| @options[:a] = true }
+    opts.on('-r') { |_v| @options[:r] = true }
+    opts.on('-l') { |_v| @options[:l] = true }
+    opts.parse!(argv)
   end
 
   def show_list
     file_list = sort_files.map { |file_name| FileData.new(file_name) }
-    @options['l'] ? LongFileList.new(file_list).show_list : ShortFileList.new(file_list).show_list
+    @options[:l] ? LongFileList.new(file_list).show_list : ShortFileList.new(file_list).show_list
   end
 
   private
 
   def find_files
-    @options['a'] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
+    @options[:a] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
   end
 
   def sort_files
-    @options['r'] ? find_files.sort.reverse : find_files
+    @options[:r] ? find_files.sort.reverse : find_files
   end
 end
 
-#puts LSCommand.new(ARGV).show_list
+puts LSCommand.new(ARGV).show_list
