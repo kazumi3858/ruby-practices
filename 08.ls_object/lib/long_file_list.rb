@@ -7,8 +7,8 @@ class LongFileList
 
   def show_list
     max_length_hash = calc_max_length
-    formated_file_data_list = @file_data_list.map { |file_data| format_list(file_data, max_length_hash).join }
-    ["total #{calculate_total_block_number}", *formated_file_data_list]
+    formated_file_list = @file_data_list.map { |file_data| format_list(file_data, max_length_hash).join }
+    ["total #{calculate_total_block_number}", *formated_file_list]
   end
 
   private
