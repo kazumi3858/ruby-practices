@@ -15,7 +15,8 @@ class LSCommand
   end
 
   def show_list
-    file_data_list = sort_files.map { |file_data| FileData.new(file_data) }
+    files = find_files
+    file_data_list = sort_files(files).map { |file_data| FileData.new(file_data) }
     @options[:l] ? LongFileList.new(file_data_list).show_list : ShortFileList.new(file_data_list).show_list
   end
 
@@ -25,8 +26,8 @@ class LSCommand
     @options[:a] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
   end
 
-  def sort_files
-    @options[:r] ? find_files.sort.reverse : find_files
+  def sort_files(files)
+    @options[:r] ? files.sort.reverse : files
   end
 end
 
