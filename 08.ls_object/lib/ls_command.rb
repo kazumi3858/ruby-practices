@@ -17,7 +17,7 @@ class LSCommand
 
   def show_list
     files = find_files
-    file_data_list = sort_files(files).map { |file_data| FileData.new(file_data) }
+    file_data_list = sort_files(files).map { |file| FileData.new(file) }
     @options[:l] ? LongFileList.new(file_data_list).show_list : ShortFileList.new(file_data_list).show_list
   end
 

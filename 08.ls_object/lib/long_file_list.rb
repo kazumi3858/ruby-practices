@@ -20,10 +20,10 @@ class LongFileList
 
   def calc_max_length
     {
-      nlink: @file_list.map { |file| file.nlink.length }.max + 1,
+      nlink: @file_list.map { |file| file.nlink.to_s.length }.max + 1,
       uid: @file_list.map { |file| file.uid.length }.max + 1,
       gid: @file_list.map { |file| file.gid.length }.max + 1,
-      size: @file_list.map { |file| file.size.length }.max + 1
+      size: @file_list.map { |file| file.size.to_s.length }.max + 1
     }
   end
 
@@ -31,11 +31,11 @@ class LongFileList
     [
       file.type,
       file.permission,
-      file.nlink.rjust(max_length_hash[:nlink]),
+      file.nlink.to_s.rjust(max_length_hash[:nlink]),
       file.uid.rjust(max_length_hash[:uid]),
       file.gid.rjust(max_length_hash[:gid]),
-      file.size.rjust(max_length_hash[:size]),
-      file.time.rjust(14),
+      file.size.to_s.rjust(max_length_hash[:size]),
+      file.time.strftime('%b %e %R ').rjust(14),
       file.name
     ]
   end

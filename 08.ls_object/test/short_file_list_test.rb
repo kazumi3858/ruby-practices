@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
+require_relative '../lib/file_data'
 require_relative '../lib/short_file_list'
 
 class ShortFileListTest < Minitest::Test
@@ -11,8 +12,9 @@ class ShortFileListTest < Minitest::Test
       .gitkeep            .
       ..                  test
     TEXT
-    test_list1 = ['test', 'lib', '.gitkeep', '..', '.gitkeep', '..', '.', 'test', '.', 'test']
-    assert_equal expected, ShortFileList.new(test_list1).show_list.join("\n")
+    files = ['test', 'lib', '.gitkeep', '..', '.gitkeep', '..', '.', 'test', '.', 'test']
+    file_data_list1 = files.map { |file| FileData.new(file) }
+    assert_equal expected, ShortFileList.new(file_data_list1).show_list.join("\n")
   end
 
   def test_long_file_list2
@@ -20,7 +22,7 @@ class ShortFileListTest < Minitest::Test
       test                .gitkeep
       lib                 .
     TEXT
-    test_list2 = ['test', 'lib', '.gitkeep', '.']
-    assert_equal expected, ShortFileList.new(test_list2).show_list.join("\n")
+    file_data_list2 = ['test', 'lib', '.gitkeep', '.'].map { |file| FileData.new(file) }
+    assert_equal expected, ShortFileList.new(file_data_list2).show_list.join("\n")
   end
 end

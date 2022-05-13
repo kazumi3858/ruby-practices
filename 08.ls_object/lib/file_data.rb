@@ -38,7 +38,7 @@ class FileData
   end
 
   def nlink
-    @file.nlink.to_s
+    @file.nlink
   end
 
   def uid
@@ -50,11 +50,11 @@ class FileData
   end
 
   def size
-    @file.size.to_s
+    @file.size
   end
 
   def time
-    @file.mtime.strftime('%b %e %R ')
+    @file.mtime
   end
 
   def blocks
