@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'file_data'
-
 class ShortFileList
   COLUMNS = 3
   TEXT_WIDTH = 20

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'file_data'
-
 class LongFileList
   def initialize(file_list)
     @file_list = file_list

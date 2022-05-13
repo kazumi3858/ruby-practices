@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
+require_relative 'file_data'
 require_relative 'long_file_list'
 require_relative 'short_file_list'
 
