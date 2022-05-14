@@ -35,7 +35,7 @@ class LongFileList
       file_data.uid.rjust(max_length_hash[:uid]),
       file_data.gid.rjust(max_length_hash[:gid]),
       file_data.size.to_s.rjust(max_length_hash[:size]),
-      file_data.time.strftime('%b %e %R ').rjust(14),
+      file_data.time.strftime(' %b %e %R '),
       file_data.name
     ]
   end
