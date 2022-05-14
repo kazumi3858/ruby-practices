@@ -30,11 +30,11 @@ class FileData
   end
 
   def type
-    @file.mode.to_s(8).rjust(6, '0')[0..2].gsub(/010|020|040|060|100|120|140/, FILE_TYPE)
+    pick_up_file_mode_numbers(0..2).gsub(/010|020|040|060|100|120|140/, FILE_TYPE)
   end
 
   def permission
-    @file.mode.to_s(8).rjust(6, '0')[3..5].gsub(/[01234567]/, PERMISSION)
+    pick_up_file_mode_numbers(3..5).gsub(/[0-7]/, PERMISSION)
   end
 
   def nlink
@@ -63,5 +63,11 @@ class FileData
 
   def name
     @file_name
+  end
+
+  private
+
+  def pick_up_file_mode_numbers(numbers)
+    @file.mode.to_s(8).rjust(6, '0')[numbers]
   end
 end
